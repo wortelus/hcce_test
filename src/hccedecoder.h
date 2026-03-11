@@ -38,7 +38,7 @@ namespace hcce {
         ObjBounds bounds_;
 
         // Binarizační funkce g(t): 0 pokud t<0.5, jinak 1
-        static inline int binarize(float t) { return t >= 0.5f ? 1 : 0; }
+        static inline int binarize(float t) { return t >= 0.0f ? 1 : 0; }
     };
 
 } // namespace hcce

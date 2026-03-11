@@ -3,7 +3,7 @@
 
 namespace hcce {
 
-CropTransform::CropInfo CropTransform::compute(const cv::Rect& bbox,
+CropTransform::CropInfo CropTransform::compute(const cv::Rect2f& bbox,
                                                  int out_size,
                                                  float pad_ratio)
 {
@@ -41,7 +41,7 @@ CropTransform::CropInfo CropTransform::compute(const cv::Rect& bbox,
     return info;
 }
 
-CropTransform::CropInfo CropTransform::computeHalf(const cv::Rect& bbox,
+CropTransform::CropInfo CropTransform::computeHalf(const cv::Rect2f& bbox,
                                                       float pad_ratio)
 {
     return compute(bbox, 128, pad_ratio);
@@ -54,7 +54,8 @@ cv::Mat CropTransform::warp(const cv::Mat& img, const CropInfo& info, int out_si
     cv::warpPerspective(img, result, info.M,
                          cv::Size(out_size, out_size),
                          cv::INTER_LINEAR,
-                         cv::BORDER_CONSTANT, cv::Scalar(0));
+                         cv::BORDER_CONSTANT,
+                        cv::Scalar(0.0f, 0.0f, 0.0f));
     return result;
 }
 
@@ -67,7 +68,8 @@ cv::Mat CropTransform::warpBack(const cv::Mat& crop_output,
     cv::warpPerspective(crop_output, result, info_128.M_inv,
                          cv::Size(orig_w, orig_h),
                          interp,
-                         cv::BORDER_CONSTANT, cv::Scalar(0));
+                         cv::BORDER_CONSTANT,
+                         cv::Scalar(0.0f, 0.0f, 0.0f));
     return result;
 }
 

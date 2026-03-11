@@ -13,6 +13,12 @@ namespace hcce {
         OrtCUDAProviderOptions cuda_opts;
         cuda_opts.device_id = std::stoi(cuda_device);
         session_opts_.AppendExecutionProvider_CUDA(cuda_opts);
+
+        // OrtTensorRTProviderOptions trt_opts{};
+        // trt_opts.device_id = std::stoi(cuda_device);
+        // trt_opts.trt_engine_cache_enable = 1;
+        // trt_opts.trt_engine_cache_path = "./trt_cache";
+        // session_opts_.AppendExecutionProvider_TensorRT(trt_opts);
 #endif
 
         // DEBUG - ukaž přesně co dostáváme

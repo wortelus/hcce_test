@@ -7,10 +7,10 @@ namespace hcce {
 
 // ─── Výsledek YOLO detekce ────────────────────────────────────────────────────
 struct Detection {
-    cv::Rect  bbox;       // x,y,w,h v pixelech
-    float     confidence;
-    int       class_id;   // index v obj_id_list
-    int       obj_id;     // skutečné ID objektu
+    cv::Rect2f bbox;      // x,y,w,h v pixelech (float)
+    float      confidence;
+    int        class_id;
+    int        obj_id;
 };
 
 // ─── Informace o objektu z models_info.json ───────────────────────────────────
@@ -51,6 +51,7 @@ struct PoseResult {
     int       obj_id;
     cv::Mat   R;           // 3×3 rotační matice (float64)
     cv::Mat   t;           // 3×1 translace (float64)
+    int       inliers;    // počet inlierů z RANSACu
     float     confidence;
     bool      valid;
 };

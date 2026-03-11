@@ -19,6 +19,12 @@ YoloDetector::YoloDetector(const std::string& model_path,
     OrtCUDAProviderOptions cuda_opts;
     cuda_opts.device_id = std::stoi(cuda_device);
     session_opts_.AppendExecutionProvider_CUDA(cuda_opts);
+
+    // OrtTensorRTProviderOptions trt_opts{};
+    // trt_opts.device_id = std::stoi(cuda_device);
+    // trt_opts.trt_engine_cache_enable = 1;
+    // trt_opts.trt_engine_cache_path = "./trt_cache";
+    // session_opts_.AppendExecutionProvider_TensorRT(trt_opts);
 #endif
 
     std::wstring model_path_w(model_path.begin(), model_path.end());
@@ -137,7 +143,7 @@ std::vector<Detection> YoloDetector::parseYoloOutput(
         if (x2 <= x1 || y2 <= y1) continue;
 
         Detection det;
-        det.bbox       = cv::Rect((int)x1, (int)y1, (int)(x2-x1), (int)(y2-y1));
+        det.bbox       = cv::Rect2f(x1, y1, (x2-x1), (y2-y1));
         det.confidence = best_conf;
         det.class_id   = best_cls;
         det.obj_id     = (best_cls < (int)obj_id_list_.size())

@@ -56,6 +56,15 @@ DenseCorrespondences UltraDenseSampler::sample(
     CV_Assert(pixels_2d.size() == back_3d.size());
 
     DenseCorrespondences result;
+#ifndef USE_SUPER_SAMPLING
+    for (size_t i = 0; i < pixels_2d.size(); i++) {
+        result.pts2d.push_back(pixels_2d[i]);
+        result.pts3d.push_back(front_3d[i]);
+        result.pts2d.push_back(pixels_2d[i]);
+        result.pts3d.push_back(back_3d[i]);
+    }
+    return result;
+#endif
 
     // ── 1. Spočítej d (průměrná NN vzdálenost v 3D) ───────────────────────────
     // Kombinuj front a back body pro reprezentativní výpočet

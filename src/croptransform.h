@@ -17,7 +17,7 @@ namespace hcce {
         // bbox: [x, y, w, h] v pixelech
         // out_size: výstupní rozlišení (default 256×256)
         // padding_ratio: 1.5 (jak v Python kódu)
-        static CropInfo compute(const cv::Rect& bbox,
+        static CropInfo compute(const cv::Rect2f& bbox,
                                  int out_size     = 256,
                                  float pad_ratio  = 1.5f);
 
@@ -28,7 +28,7 @@ namespace hcce {
 
         // Spočítá transformaci v polovičním rozlišení (pro 128×128 výstup sítě)
         // Potřebné pro zpětnou transformaci predikovaných masek a kódů
-        static CropInfo computeHalf(const cv::Rect& bbox,
+        static CropInfo computeHalf(const cv::Rect2f& bbox,
                                       float pad_ratio = 1.5f);
 
         // Transformuje 2D bod z crop prostoru zpět do orig obrazu
